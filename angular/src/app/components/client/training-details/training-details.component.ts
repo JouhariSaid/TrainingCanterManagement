@@ -36,7 +36,7 @@ export class TrainingDetailsComponent implements OnInit {
       .subscribe({
       next: (training) => {
         this.training = training;
-        this.imageProcessingService.createImages(training);
+        this.imageProcessingService.createImage(training);
         this.training.comments = this.training.comments.filter(c => c.validated)
         this.training.comments.map(c => c.date = new Date(c.date));
         console.log(this.training)

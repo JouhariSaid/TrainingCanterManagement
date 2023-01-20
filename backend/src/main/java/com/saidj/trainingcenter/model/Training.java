@@ -1,7 +1,6 @@
 package com.saidj.trainingcenter.model;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -17,6 +16,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,15 +37,8 @@ public class Training {
 	private Date startDate;
 	private Date endDate;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "training_images",
-			joinColumns = {
-					@JoinColumn(name = "training_id")
-			},
-			inverseJoinColumns = {
-					@JoinColumn(name = "image_id")
-			})
-	private Set<ImageModel> image = new HashSet<>();
+	@OneToOne(cascade = CascadeType.ALL)
+	private ImageModel image;
 	
 	@ManyToMany(
 		fetch = FetchType.LAZY, 

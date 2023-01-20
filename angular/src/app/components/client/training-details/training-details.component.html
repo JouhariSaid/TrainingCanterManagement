@@ -1,7 +1,7 @@
 <div *ngIf="training" class="container my-1">
   <div class="row">
     <div class="col-6" style="height: 89vh">
-      <img [src]="training.image[0].url" alt="Training Image" style="height: 250px" class="w-100 mb-3">
+      <img [src]="training.image!.url" alt="Training Image" style="height: 250px" class="w-100 mb-3">
       <div class="d-flex flex-column justify-content-between">
         <div>
           <h1 class="fs-4">{{ training.name }}</h1>

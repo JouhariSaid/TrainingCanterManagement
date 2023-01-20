@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Training} from "../../model/training.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TrainingService} from "../../../services/training.service";
-import {FileHandle} from "../../model/file-handler.model";
 import {DomSanitizer} from "@angular/platform-browser";
-import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../../services/user.service";
 import {ImageProcessingService} from "../../../services/image-processing.service";
 import {User} from "../../model/user.model";
@@ -36,7 +34,7 @@ export class UpdateTrainingComponent implements OnInit {
     this.trainingService.getTraining(this.activatedRoute.snapshot.params['trainingId']).subscribe({
       next: (training) => {
         this.training = training;
-        this.imageProcessingService.createImages(this.training)
+        this.imageProcessingService.createImage(this.training)
         this.userService.getUsersByRole('Trainer').subscribe({
           next: (trainers) => {
             this.trainers = trainers.filter(t => t.userId != training.trainer.userId);
@@ -74,8 +72,8 @@ export class UpdateTrainingComponent implements OnInit {
 
     formData.append(
       'imageFile',
-      training.image[1].file,
-      training.image[1].file.name
+      training.image.file,
+      training.image.file.name
     );
     return formData;
   }
@@ -83,11 +81,10 @@ export class UpdateTrainingComponent implements OnInit {
   onFileChanged({event}: { event: any }) {
     if(event.target.files){
       const file = event.target.files[0];
-      const fileHandle: FileHandle = {
-        file: file ,
+      this.training.image = {
+        file: file,
         url: this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
-      }
-      this.training.image.push(fileHandle);
+      };
     }
   }
 

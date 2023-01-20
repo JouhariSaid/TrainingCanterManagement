@@ -1,8 +1,6 @@
 package com.saidj.trainingcenter.controller;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -52,8 +50,8 @@ public class TrainingController {
 			@RequestPart("training") Training training,
 			@RequestPart("imageFile") MultipartFile[] file) {
 		try {
-			Set<ImageModel> images = uploadImage(file);
-			training.setImage(images);
+			ImageModel image = uploadImage(file);
+			training.setImage(image);
 			return trainingService.saveTraining(training);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -68,10 +66,12 @@ public class TrainingController {
 			@RequestPart("imageFile") MultipartFile[] file) {
 		try {
 			training.setTrainingId(trainingId);
-			Set<ImageModel> images = uploadImage(file);
-			training.setImage(images);
-			System.out.println(training.getImage().size());
-			return trainingService.updateTraining(training);
+			Long imageId = getTraining(trainingId).getImage().getImageId();
+			ImageModel image = uploadImage(file);
+			training.setImage(image);
+			Training t = trainingService.updateTraining(training);
+			imageRepository.deleteById(imageId);
+			return t;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -107,16 +107,12 @@ public class TrainingController {
 		return trainingService.addCommentToTraining(trainingId, commentId);
 	}
 	
-	public Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException{
-		Set<ImageModel> imageModels = new HashSet<>();
-		for(MultipartFile file: multipartFiles) {
-			ImageModel imageModel = new ImageModel(
-					file.getOriginalFilename(),
-					file.getContentType(),
-					file.getBytes()
-			);
-			imageModels.add(imageModel);
-		}
-		return imageModels;
+	public ImageModel uploadImage(MultipartFile[] multipartFiles) throws IOException {
+		ImageModel imageModel = new ImageModel(
+				multipartFiles[0].getOriginalFilename(),
+				multipartFiles[0].getContentType(),
+				multipartFiles[0].getBytes()
+		);
+		return imageModel;
 	}
 }

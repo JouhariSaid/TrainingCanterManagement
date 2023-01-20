@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
   handleGetTrainings() {
     this.trainingService.getTrainings()
-      .pipe(map((x:Training[], i) => x.map((training :Training) => this.imageProcessingService.createImages(training))))
+      .pipe(map((x:Training[], i) => x.map((training :Training) => this.imageProcessingService.createImage(training))))
       .subscribe({
         next: (trainings) => {
           for(let training of trainings) {

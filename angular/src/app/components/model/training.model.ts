@@ -6,7 +6,7 @@ export interface Training {
   trainingId: number;
   name: string;
   description: string;
-  image: FileHandle[];
+  image: FileHandle;
   startDate: Date;
   endDate: Date;
   price: number;

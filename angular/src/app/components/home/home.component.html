@@ -9,7 +9,7 @@
           <div *ngFor="let training of trainings" class="p-2 col-md-3">
             <div class="p-2 border h-100 d-flex flex-column justify-content-between">
               <div>
-                <img [src]="training.image[0].url" alt="Training Image" height="213" class="card-img mb-2">
+                <img [src]="training.image!.url" alt="Training Image" height="213" class="card-img mb-2">
                 <h1 class="h6">{{ training.name }}</h1>
               </div>
               <div>

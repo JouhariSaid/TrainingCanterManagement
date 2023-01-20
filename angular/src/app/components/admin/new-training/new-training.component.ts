@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TrainingService} from "../../../services/training.service";
 import {Router} from "@angular/router";
@@ -25,7 +25,10 @@ export class NewTrainingComponent implements OnInit {
     description: "",
     startDate: new Date(),
     endDate: new Date(),
-    image: [],
+    image: {
+      file: {} as File,
+      url: {}
+    },
     price: 0,
     trainerAmount: 0,
     participants: [],
@@ -91,22 +94,21 @@ export class NewTrainingComponent implements OnInit {
 
     formData.append(
       'imageFile',
-      training.image[0].file,
-      training.image[0].file.name
+      training.image.file,
+      training.image.file.name
     );
 
     return formData;
   }
 
   onFileChanged({event}: { event: any }) {
-    if(event.target.files){
+    if(event.target.files) {
       const file = event.target.files[0];
 
-      const fileHandle: FileHandle = {
-        file: file ,
+      this.training.image = {
+        file: file,
         url: this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
-      }
-      this.training.image.push(fileHandle);
+      };
 
     }
   }

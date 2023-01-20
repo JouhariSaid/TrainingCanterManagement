@@ -9,7 +9,7 @@
           <div class="mb-2 col-md-4">
             <div>
               <label class="form-label" for="image">
-                <img [src]="training.image[0].url" alt="Training Image" class="col-md-6 w-100" style="height: 385px">
+                <img [src]="training.image.url" alt="Training Image" class="col-md-6 w-100" style="height: 385px">
               </label>
               <input type="file" accept="image/*" id="image" class="form-control d-none" multiple value="select" (change)="onFileChanged({event : $event})">
             </div>
