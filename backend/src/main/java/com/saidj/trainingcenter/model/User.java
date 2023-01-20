@@ -40,6 +40,7 @@ public class User {
 	private String phone;
 	private String role;
 	private String password;
+	private boolean isDeleted = false;
 	
 	@ElementCollection
 	@CollectionTable(name = "domains")

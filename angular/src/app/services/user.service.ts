@@ -19,7 +19,8 @@ export class UserService {
     phone: "",
     role: "Admin",
     domains: [],
-    password: "admin123Z"
+    password: "admin123Z",
+    deleted: false
   }
 
   constructor(private http: HttpClient) {
@@ -46,8 +47,8 @@ export class UserService {
     return this.http.put(`${this.baseUrl}/users/${this.currentUser?.userId}`, this.currentUser);
   }
 
-  deleteUser(idUser: number): Observable<Object> {
-    return this.http.delete(`${this.baseUrl}/users/${idUser}`);
+  deleteUser(user: User): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/users/${user.userId}`, user);
   }
 
   addParticipantToTraining(training: Training): Observable<Training> {

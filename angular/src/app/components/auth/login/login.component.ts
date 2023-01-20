@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
       next: (user) => {
         if(!user) {
           this.errorMessage = "User not found";
+        } else if(user.deleted) {
+          this.errorMessage = "Your account was deleted by admin!";
         } else if(user.password != password) {
           this.errorMessage = "Email or password incorrect!";
         } else {

@@ -19,12 +19,12 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public List<User> getUsers() {
-		return userRepository.findAll();
+		return userRepository.findByIsDeleted(false);
 	}
 	
 	@Override
-	public List<User> getUsersByRole(String role) {
-		return userRepository.findByRole(role);
+	public List<User> getUsersByRoleAndIsDeleted(String role) {
+		return userRepository.findByRoleAndIsDeleted(role, false);
 	}
 
 	@Override
@@ -52,11 +52,6 @@ public class UserServiceImp implements UserService {
 	@Override
 	public User updateUser(User user) {
 		return userRepository.save(user);
-	}
-
-	@Override
-	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
 	}
 
 }

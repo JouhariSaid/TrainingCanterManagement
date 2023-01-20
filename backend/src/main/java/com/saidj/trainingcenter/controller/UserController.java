@@ -31,7 +31,7 @@ public class UserController {
 	
 	@GetMapping("/users/role/{role}")
 	public List<User> getUsersByRole(@PathVariable String role) {
-		return userService.getUsersByRole(role);
+		return userService.getUsersByRoleAndIsDeleted(role);
 	}
 	
 	@GetMapping("/users/trainings/{userId}")
@@ -58,11 +58,6 @@ public class UserController {
 	public User updateUser(@PathVariable Long id, @RequestBody User user) {
 		user.setUserId(id);
 		return userService.updateUser(user);
-	}
-	
-	@DeleteMapping("/users/{id}")
-	public void deleteUser(@PathVariable Long id) {
-		userService.deleteUser(id);
 	}
 	
 }

@@ -10,7 +10,9 @@ import com.saidj.trainingcenter.model.Training;
 import com.saidj.trainingcenter.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-	List<User> findByRole(String role);
+	List<User> findByIsDeleted(boolean isDeleted);
+	
+	List<User> findByRoleAndIsDeleted(String role, boolean isDeleted);
 	User findByEmail(String email);
 	
 	@Query("SELECT trainings FROM User WHERE userId = :userId")

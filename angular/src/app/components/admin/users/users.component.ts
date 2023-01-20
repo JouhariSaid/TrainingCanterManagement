@@ -36,16 +36,13 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  updateUser(userId: number) {
-
-  }
-
-  handleDeleteUser(userId: number) {
+  handleDeleteUser(user: User) {
     let conf = confirm("Are you sure?");
     if(!conf) return;
-    this.userService.deleteUser(userId).subscribe({
+    user.deleted = true;
+    this.userService.deleteUser(user).subscribe({
       next: (data) => {
-        this.users = this.users.filter(u => u.userId != userId)
+        this.users = this.users.filter(u => u.userId != user.userId);
       }
     })
   }

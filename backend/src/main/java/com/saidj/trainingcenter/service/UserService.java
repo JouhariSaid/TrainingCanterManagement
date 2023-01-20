@@ -8,7 +8,7 @@ import com.saidj.trainingcenter.model.User;
 
 public interface UserService {
 	List<User> getUsers();
-	List<User> getUsersByRole(String role);
+	List<User> getUsersByRoleAndIsDeleted(String role);
 	
 	Set<Training> getUserTrainings(Long userId);
 	
@@ -17,5 +17,4 @@ public interface UserService {
 	
 	User saveUser(User user);
 	User updateUser(User user);
-	void deleteUser(Long userId);
 }

@@ -38,6 +38,7 @@ export class NewTrainingComponent implements OnInit {
       role: "",
       password: "",
       domains:[],
+      deleted: false
     },
   };
 
