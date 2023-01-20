@@ -48,7 +48,7 @@ public class TrainingController {
 	@PostMapping(value= {"/addtraining"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
 	public Training saveTraining(
 			@RequestPart("training") Training training,
-			@RequestPart("imageFile") MultipartFile[] file) {
+			@RequestPart("imageFile") MultipartFile file) {
 		try {
 			ImageModel image = uploadImage(file);
 			training.setImage(image);
@@ -63,10 +63,15 @@ public class TrainingController {
 	public Training updateeTraining(
 			@PathVariable Long trainingId,
 			@RequestPart("training") Training training,
-			@RequestPart("imageFile") MultipartFile[] file) {
+			@RequestPart(name = "imageFile", required = false) MultipartFile file) {
 		try {
 			training.setTrainingId(trainingId);
-			Long imageId = getTraining(trainingId).getImage().getImageId();
+			if(file == null) {
+				training.setImage(getTraining(trainingId).getImage());
+				return trainingService.updateTraining(training);
+			}
+			ImageModel imageModel = getTraining(trainingId).getImage();
+			Long imageId = imageModel.getImageId();
 			ImageModel image = uploadImage(file);
 			training.setImage(image);
 			Training t = trainingService.updateTraining(training);
@@ -107,11 +112,11 @@ public class TrainingController {
 		return trainingService.addCommentToTraining(trainingId, commentId);
 	}
 	
-	public ImageModel uploadImage(MultipartFile[] multipartFiles) throws IOException {
+	public ImageModel uploadImage(MultipartFile multipartFile) throws IOException {
 		ImageModel imageModel = new ImageModel(
-				multipartFiles[0].getOriginalFilename(),
-				multipartFiles[0].getContentType(),
-				multipartFiles[0].getBytes()
+				multipartFile.getOriginalFilename(),
+				multipartFile.getContentType(),
+				multipartFile.getBytes()
 		);
 		return imageModel;
 	}

@@ -16,7 +16,8 @@ import {User} from "../../model/user.model";
 export class UpdateTrainingComponent implements OnInit {
   updateTrainingFormGrop!: FormGroup;
   training!: Training;
-  trainers!: User[]
+  trainers!: User[];
+  imageUpdated: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +35,7 @@ export class UpdateTrainingComponent implements OnInit {
     this.trainingService.getTraining(this.activatedRoute.snapshot.params['trainingId']).subscribe({
       next: (training) => {
         this.training = training;
-        this.imageProcessingService.createImage(this.training)
+        this.imageProcessingService.createImage(this.training);
         this.userService.getUsersByRole('Trainer').subscribe({
           next: (trainers) => {
             this.trainers = trainers.filter(t => t.userId != training.trainer.userId);
@@ -70,16 +71,19 @@ export class UpdateTrainingComponent implements OnInit {
       new Blob([JSON.stringify(this.updateTrainingFormGrop.value)], {type: 'application/json'})
     );
 
-    formData.append(
-      'imageFile',
-      training.image.file,
-      training.image.file.name
-    );
+    if(this.imageUpdated) {
+      formData.append(
+        'imageFile',
+        training.image.file,
+        training.image.file.name
+      );
+    }
     return formData;
   }
 
   onFileChanged({event}: { event: any }) {
-    if(event.target.files){
+    this.imageUpdated = true;
+    if(event.target.files) {
       const file = event.target.files[0];
       this.training.image = {
         file: file,
