@@ -30,13 +30,13 @@
               </button>
             </td>
             <td>
-              <a>{{ training.trainer.name }}</a>
+              <button title="Show trainer profile" class="btn text-info" (click)="trainerProfile(training.trainer.userId)">{{ training.trainer.name }}</button>
             </td>
             <td style="width: 120px">
-              <button class="btn btn-success mx-1" (click)="trainingDetails(training.trainingId)">
+              <button title="Show trining details" class="btn btn-success mx-1" (click)="trainingDetails(training.trainingId)">
                 <i class="bi bi-plus-lg text-white"></i>
               </button>
-              <button class="btn btn-danger mx-1" (click)="handleDeleteTraining(training.trainingId)">
+              <button title="Delete training" class="btn btn-danger mx-1" (click)="handleDeleteTraining(training.trainingId)">
                 <i class="bi bi-trash text-white"></i>
               </button>
             </td>

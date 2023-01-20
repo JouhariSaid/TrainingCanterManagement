@@ -3,6 +3,7 @@ import {Training} from "../../model/training.model";
 import {TrainingService} from "../../../services/training.service";
 import {Router} from "@angular/router";
 import * as fs from 'file-saver';
+import {User} from "../../model/user.model";
 
 @Component({
   selector: 'app-trainings',
@@ -65,5 +66,9 @@ export class TrainingsComponent implements OnInit {
 
   trainingDetails(trainingId: number) {
     this.router.navigateByUrl("/admin/training-details/" + trainingId)
+  }
+
+  trainerProfile(userId: number) {
+    this.router.navigateByUrl("admin/training/trainer/" + userId);
   }
 }

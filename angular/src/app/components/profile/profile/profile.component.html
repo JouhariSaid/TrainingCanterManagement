@@ -1,15 +1,15 @@
-<div *ngIf="userService.currentUser" class="container">
+<div *ngIf="user" class="container">
   <div class="card col-md-6 offset-md-3">
     <div class="card-header d-flex justify-content-between">
-      <h1 class="fs-4">My Account</h1>
-      <button (click)="updateProfile()" class="btn btn-outline-info">Update Profile</button>
+      <h1 class="fs-4">Profile</h1>
+      <button *ngIf="userService.currentUser && userService.currentUser.role != 'Admin'" (click)="updateProfile()" class="btn btn-outline-info">Update Profile</button>
     </div>
     <div class="card-body d-flex flex-column align-items-center">
-      <img src="assets/images/trainings/spring.png" alt="{{ userService.currentUser.name }}" class="rounded-circle mb-3">
-      <p class="fs-3 mb-1">{{ userService.currentUser.name }}</p>
-      <p class="fs-4 mb-1">{{ userService.currentUser.email }}</p>
-      <p class="fs-4 mb-1">{{ userService.currentUser.phone }}</p>
-      <p class="fs-4 mb-1">{{ userService.currentUser.role }}</p>
+      <img src="assets/images/trainings/spring.png" alt="{{ user.name }}" class="rounded-circle mb-3">
+      <p class="fs-3 mb-1">{{ user.name }}</p>
+      <p class="fs-4 mb-1">{{ user.email }}</p>
+      <p class="fs-4 mb-1">{{ user.phone }}</p>
+      <p class="fs-4 mb-1">{{ user.role }}</p>
     </div>
   </div>
 </div>

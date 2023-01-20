@@ -31,6 +31,10 @@ export class UserService {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
 
+  getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/${userId}`);
+  }
+
   getUsersByRole(role: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users/role/${role}`);
   }

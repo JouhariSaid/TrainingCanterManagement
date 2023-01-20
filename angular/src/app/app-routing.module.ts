@@ -42,6 +42,10 @@ const routes: Routes = [
         component: TrainingDetailsComponent
       },
       {
+        path: "training/trainer/:userId",
+        component: ProfileComponent
+      },
+      {
         path: "newtraining",
         component: NewTrainingComponent
       },
