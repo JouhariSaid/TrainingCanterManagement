@@ -1,0 +1,40 @@
+<div *ngIf="training" class="container my-1">
+  <div class="row">
+    <div class="col-6" style="height: 89vh">
+      <img [src]="training.image[0].url" alt="Training Image" style="height: 250px" class="w-100 mb-3">
+      <div class="d-flex flex-column justify-content-between">
+        <div>
+          <h1 class="fs-4">{{ training.name }}</h1>
+          <p>{{ training.description }}</p>
+          <p>from {{ training.startDate | date:'yyyy-MM-dd' }} to {{ training.endDate | date:'yyyy-MM-dd' }}</p>
+          <h2 class="fs-5 text-success">$ {{ training.price }}</h2>
+        </div>
+        <button (click)="handleEnrollTraining(training)" *ngIf="userService.currentUser && userService.currentUser.role != 'Admin'" class="btn btn-danger">Enroll now</button>
+        <button (click)="updateTraining(training.trainingId)" *ngIf="userService.currentUser && userService.currentUser.role == 'Admin'" class="btn btn-success">Update</button>
+      </div>
+    </div>
+    <div class="col-6">
+      <div>
+        <h1 class="fs-4 my-3">Comments</h1>
+        <ul class="border rounded-2 p-2 d-flex flex-column-reverse">
+          <li *ngFor="let comment of training.comments">
+            <p class="fs-6 fw-bold my-1">{{ comment.user.name }} {{ comment.date | date:'yyyy-MM-dd hh:mm' }}</p>
+            <p>{{ comment.comment }}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="w-100">
+        <form class="my-1 row col-6" [formGroup]="commentFormGroup" (ngSubmit)="handleSaveComment()">
+          <div class="mb-3 col-9">
+            <input type="text" id="comment" formControlName="comment" class="form-control">
+          </div>
+          <div class="col-2">
+            <button type="submit" class="btn btn-success">
+              <i class="bi bi-send"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

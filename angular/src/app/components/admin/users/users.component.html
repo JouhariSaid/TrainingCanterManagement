@@ -1,0 +1,50 @@
+<div class="container mt-2">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div class="d-flex">
+        <h1 class="fs-4 me-4">List of users</h1>
+        <div  class="btn-group">
+          <button style="width: 150px" class="btn btn-outline-secondary btn-sm text-start" type="button">
+            {{role}}
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="handleGetUsers()">All</a></li>
+            <li><a class="dropdown-item" (click)="handleGetUsersByRole('Trainer')">List of trainers</a></li>
+            <li><a class="dropdown-item" (click)="handleGetUsersByRole('Student')">List of students</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="table-light text-center">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+          <tr *ngFor="let user of users">
+            <td>{{ user.userId }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.role }}</td>
+            <td style="width: 60px">
+              <button class="btn btn-danger mx-1" (click)="handleDeleteUser(user.userId)">
+                <i class="bi bi-trash text-white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

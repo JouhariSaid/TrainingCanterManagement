@@ -1,0 +1,48 @@
+<div class="container mt-2">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h1 class="fs-4">List of Trainings</h1>
+      <button class="btn btn-outline-info" (click)="newTraining()">New Training</button>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="table-light text-center">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th style="width: 200px">Number of participants</th>
+            <th>Trainer</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+          <tr *ngFor="let training of trainings">
+            <td>{{ training.trainingId }}</td>
+            <td class="text-start">{{ training.name }}</td>
+            <td>{{ training.startDate.toLocaleDateString() }}</td>
+            <td>{{ training.endDate.toLocaleDateString() }}</td>
+            <td class="d-flex justify-content-between align-items-center">
+              {{ training.participants.length }}
+              <button class="btn" (click)="handleDownloadListOfParticipants(training)" title="Download the list of participants">
+                <i class="bi bi-download"></i>
+              </button>
+            </td>
+            <td>
+              <a>{{ training.trainer.name }}</a>
+            </td>
+            <td style="width: 120px">
+              <button class="btn btn-success mx-1" (click)="trainingDetails(training.trainingId)">
+                <i class="bi bi-plus-lg text-white"></i>
+              </button>
+              <button class="btn btn-danger mx-1" (click)="handleDeleteTraining(training.trainingId)">
+                <i class="bi bi-trash text-white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

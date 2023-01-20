@@ -1,0 +1,63 @@
+<div class="container mt-2">
+  <div class="card col-md-10 offset-md-1">
+    <div class="card-header">
+      <h1 class="fs-5">Update Training</h1>
+    </div>
+    <div *ngIf="training && trainers" class="card-body">
+      <form [formGroup]="updateTrainingFormGrop" (ngSubmit)="handleUpdateTraining()">
+        <div class="row">
+          <div class="mb-2 col-md-4">
+            <div>
+              <label class="form-label" for="image">
+                <img [src]="training.image[0].url" alt="Training Image" class="col-md-6 w-100" style="height: 385px">
+              </label>
+              <input type="file" accept="image/*" id="image" class="form-control d-none" multiple value="select" (change)="onFileChanged({event : $event})">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="mb-3">
+              <label class="form-label" for="name">Name</label>
+              <input type="text" id="name" formControlName="name" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">Description</label>
+              <input type="text" id="description" formControlName="description" class="form-control">
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="startDate">Start Date</label>
+                <input type="date" id="startDate" [ngModel]="training.startDate | date:'yyyy-MM-dd'" formControlName="startDate" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="endDate">End Date</label>
+                <input type="date" id="endDate" [ngModel] ="training.endDate | date:'yyyy-MM-dd'" formControlName="endDate" class="form-control">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="price">Price</label>
+                <input type="number" id="price" formControlName="price" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="trainerAmount">Trainer Price</label>
+                <input type="number" id="trainerAmount" formControlName="trainerAmount" class="form-control">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="trainer">Trainer</label>
+                <select name="trainer" id="trainer" formControlName="trainer" class="form-select">
+                  <option [ngValue]="training.trainer">{{training.trainer.userId}} - {{training.trainer.name}}</option>
+                  <option *ngFor="let trainer of trainers" [ngValue]="trainer">{{trainer.userId}} - {{trainer.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button [disabled]="!updateTrainingFormGrop.valid" type="submit" class="btn btn-success w-100">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

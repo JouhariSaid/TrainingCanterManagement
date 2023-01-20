@@ -1,0 +1,28 @@
+<div class="container mt-2">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h1 class="fs-4">List of Trainings</h1>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="row">
+          <div *ngFor="let training of trainings" class="p-2 col-md-3">
+            <div class="p-2 border h-100 d-flex flex-column justify-content-between">
+              <div>
+                <img [src]="training.image[0].url" alt="Training Image" height="213" class="card-img mb-2">
+                <h1 class="h6">{{ training.name }}</h1>
+              </div>
+              <div>
+                <div class="my-1 d-flex justify-content-between">
+                  <h2 class="h5 text-success">$ {{ training.price }}</h2>
+                  <button class="btn text-info" (click)="trainingDetails(training.trainingId)">More details...</button>
+                </div>
+                <button (click)="handleEnrollTraining(training)" class="btn btn-danger w-100">Enroll now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

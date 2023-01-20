@@ -1,0 +1,52 @@
+<div class="container mt-2">
+  <div class="card col-md-8 offset-md-2">
+    <div class="card-header">
+      <h1 class="fs-5">Create New Training</h1>
+    </div>
+    <div *ngIf="trainers" class="card-body">
+      <form [formGroup]="newTrainingFormGrop" (ngSubmit)="handleNewTraining()">
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <label class="form-label" for="image">Image</label>
+            <input type="file" accept="image/*" id="image" class="form-control" multiple value="select" (change)="onFileChanged({event : $event})">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="form-label" for="trainer">Trainer</label>
+            <select name="trainer" id="trainer" formControlName="trainer" class="form-select">
+              <option *ngFor="let trainer of trainers" [ngValue]="trainer">{{trainer.userId}} - {{trainer.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="name">Name</label>
+          <input type="text" id="name" formControlName="name" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="description">Description</label>
+          <input type="text" id="description" formControlName="description" class="form-control">
+        </div>
+        <div class="mb-3 row gx-3">
+          <div class="col-md-6">
+            <label class="form-label" for="startDate">Start Date</label>
+            <input type="date" id="startDate" formControlName="startDate" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="endDate">End Date</label>
+            <input type="date" id="endDate" formControlName="endDate" class="form-control">
+          </div>
+        </div>
+        <div class="mb-3 row gx-3">
+          <div class="col-md-6">
+            <label class="form-label" for="price">Price</label>
+            <input type="number" id="price" formControlName="price" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="trainerAmount">Trainer Price</label>
+            <input type="number" id="trainerAmount" formControlName="trainerAmount" class="form-control">
+          </div>
+        </div>
+        <button [disabled]="!newTrainingFormGrop.valid" type="submit" class="btn btn-success">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

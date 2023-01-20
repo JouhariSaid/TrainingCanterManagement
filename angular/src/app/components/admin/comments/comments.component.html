@@ -1,0 +1,34 @@
+<div *ngIf="comments" class="container">
+  <div class="card">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Comment</th>
+            <th>User</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comment of comments">
+            <td>{{ comment.commentId }}</td>
+            <td>{{ comment.comment }}</td>
+            <td>{{ comment.user.name }}</td>
+            <td style="width: 120px">
+              <button title="Validate comment" class="btn btn-success mx-1" (click)="handleValidateComment(comment)">
+                <i class="bi bi-check-lg text-white"></i>
+              </button>
+              <button title="Delete comment" class="btn btn-danger mx-1" (click)="handleDeleteComment(comment.commentId)">
+                <i class="bi bi-trash text-white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

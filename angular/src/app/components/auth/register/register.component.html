@@ -1,0 +1,93 @@
+<div class="container d-flex vh-100 justify-content-center align-items-center">
+  <div class="card col-lg-8" style="border-radius: 15px">
+    <div class="card-body">
+      <h1 class="fs-3 mb-2">Create an account</h1>
+      <form [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
+
+        <div class="row mb-lg-3">
+          <div class="col-lg-6">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['name'].errors &&
+                   registerFormGroup.controls['name'].touched">
+              {{userService.getErrorMessage("Name", registerFormGroup.controls['name'].errors)}}
+            </small>
+          </div>
+
+          <div class="col-lg-6">
+            <label class="form-label" for="role">You are</label>
+            <select
+              id="role"
+              formControlName="role"
+              class="form-select"
+            >
+              <option value="Student">Student</option>
+              <option value="Trainer">Trainer</option>
+            </select>
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['role'].errors &&
+                   registerFormGroup.controls['role'].touched">
+              {{userService.getErrorMessage("Role", registerFormGroup.controls['role'].errors)}}
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-lg-3">
+          <div class="col-lg-6">
+            <label class="form-label" for="email">Email</label>
+            <input type="text" id="email" class="form-control" formControlName="email">
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['email'].errors &&
+                   registerFormGroup.controls['email'].touched">
+              {{userService.getErrorMessage("Email", registerFormGroup.controls['email'].errors)}}
+            </small>
+          </div>
+
+          <div class="col-lg-6">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input type="text" id="phone" class="form-control" formControlName="phone">
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['phone'].errors &&
+                   registerFormGroup.controls['phone'].touched">
+              {{userService.getErrorMessage("Phone Number", registerFormGroup.controls['phone'].errors)}}
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-lg-3">
+          <div class="col-lg-6">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" class="form-control" formControlName="password">
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['password'].errors &&
+                   registerFormGroup.controls['password'].touched">
+              {{userService.getErrorMessage("Password",
+              registerFormGroup.controls['password'].errors)}}
+            </small>
+          </div>
+
+          <div class="col-lg-6">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" class="form-control"
+                   formControlName="confirmPassword">
+            <small class="text-danger"
+                   *ngIf="registerFormGroup.controls['confirmPassword'].errors &&
+                   registerFormGroup.controls['confirmPassword'].touched">
+              {{userService.getErrorMessage("Confirm Password",
+              registerFormGroup.controls['confirmPassword'].errors)}}
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <button [disabled]="!registerFormGroup.valid" type="submit" class="btn btn-info w-100">Register</button>
+        </div>
+
+      </form>
+      <div class="my-3">
+        Already have an account? <a routerLink="/login">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>

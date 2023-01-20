@@ -1,0 +1,13 @@
+form {
+  position: fixed;
+  bottom: 0;
+}
+
+ul {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
