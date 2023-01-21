@@ -49,7 +49,7 @@ export class UpdateTrainingComponent implements OnInit {
               trainerAmount: this.fb.control(this.training.trainerAmount, [Validators.required])
             });
           }
-        })
+        });
       }
     })
   }
@@ -85,10 +85,14 @@ export class UpdateTrainingComponent implements OnInit {
     this.imageUpdated = true;
     if(event.target.files) {
       const file = event.target.files[0];
-      this.training.image = {
-        file: file,
-        url: this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
-      };
+      const reader = new FileReader();
+      reader.onload = e => {
+        this.training.image = {
+          file: file,
+          url: this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
+        };
+      }
+      reader.readAsDataURL(file);
     }
   }
 
