@@ -1,10 +1,14 @@
+img {
+  height: 200px;
+}
+
 form {
   position: fixed;
   bottom: 0;
 }
 
 ul {
-  height: 70vh;
+  height: 76vh;
   overflow-y: scroll;
 }
 

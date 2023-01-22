@@ -8,7 +8,7 @@ import {CommentService} from "../../../services/comment.service";
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent implements OnInit {
-  comments!: CommentModel[];
+  comments: CommentModel[] = [];
   constructor(
     private commentService: CommentService,
   ) { }

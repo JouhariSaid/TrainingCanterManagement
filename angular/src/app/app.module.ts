@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CommentsComponent } from './components/admin/comments/comments.component';
 import { ProfileComponent } from './components/profile/profile/profile.component';
 import { UpdateProfileComponent } from './components/profile/update-profile/update-profile.component';
+import { TrainingRequestsComponent } from './components/admin/training-requests/training-requests.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { UpdateProfileComponent } from './components/profile/update-profile/upda
     CommentsComponent,
     ProfileComponent,
     UpdateProfileComponent,
+    TrainingRequestsComponent,
   ],
   imports: [
     BrowserModule,

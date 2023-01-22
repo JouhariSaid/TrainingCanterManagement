@@ -1,38 +1,59 @@
 <div *ngIf="training" class="container my-1">
   <div class="row">
-    <div class="col-6" style="height: 89vh">
-      <img [src]="training.image!.url" alt="Training Image" style="height: 250px" class="w-100 mb-3">
-      <div class="d-flex flex-column justify-content-between">
+    <div class="col-6">
+      <div style="height: 89vh" class="d-flex flex-column justify-content-between">
         <div>
+          <img
+            [src]="training.image!.url"
+            alt="Training Image"
+            class="w-100 my-1 p-1 border rounded-2">
           <h1 class="fs-4">{{ training.name }}</h1>
-          <p>{{ training.description }}</p>
-          <p>from {{ training.startDate | date:'yyyy-MM-dd' }} to {{ training.endDate | date:'yyyy-MM-dd' }}</p>
-          <h2 class="fs-5 text-success">$ {{ training.price }}</h2>
+          <p class="mb-1"><span class="fw-bold">Description:</span> {{ training.description }}</p>
         </div>
-        <button (click)="handleEnrollTraining(training)" *ngIf="userService.currentUser && userService.currentUser.role != 'Admin'" class="btn btn-danger">Enroll now</button>
-        <button (click)="updateTraining(training.trainingId)" *ngIf="userService.currentUser && userService.currentUser.role == 'Admin'" class="btn btn-success">Update</button>
+        <div>
+          <p class="mb-1">This training will take place from <span class="fw-bold">{{ training.startDate | date:'yyyy-MM-dd' }}</span> to <span class="fw-bold">{{ training.endDate | date:'yyyy-MM-dd' }}</span></p>
+          <p class="mb-1">The deadline for registrations : <span class="fw-bold">{{ training.startDate | date:'yyyy-MM-dd' }}</span></p>
+          <p class="mb-1">Trainer: <span class="fw-bold">{{ training.trainer.name }}</span></p>
+          <div class="d-flex justify-content-between">
+            <h2 class="fs-5 text-info">Training Price : $ {{ training.price }}</h2>
+            <h2 *ngIf="userService.currentUser && userService.currentUser.role == 'Admin'" class="fs-5 text-danger">Trainer Amount : $ {{ training.trainerAmount }}</h2>
+          </div>
+          <button
+            (click)="handleEnrollTraining(training)"
+            *ngIf="userService.currentUser && userService.currentUser.role != 'Admin'"
+            class="btn btn-danger w-100">Enroll now
+          </button>
+          <button
+            (click)="updateTraining(training.trainingId)"
+            *ngIf="userService.currentUser && userService.currentUser.role == 'Admin'"
+            class="btn btn-success w-100">Update
+          </button>
+        </div>
       </div>
     </div>
     <div class="col-6">
       <div>
-        <h1 class="fs-4 my-3">Comments</h1>
+        <h1 class="fs-4 mb-1">Comments</h1>
         <ul class="border rounded-2 p-2 d-flex flex-column-reverse">
           <li *ngFor="let comment of training.comments">
-            <p class="fs-6 fw-bold my-1">{{ comment.user.name }} {{ comment.date | date:'yyyy-MM-dd hh:mm' }}</p>
+            <p class="fs-6 fw-bold my-1">
+              {{ comment.user.name }} {{ comment.date | date:'yyyy-MM-dd hh:mm' }}
+            </p>
             <p>{{ comment.comment }}</p>
           </li>
         </ul>
       </div>
       <div class="w-100">
-        <form class="my-1 row col-6" [formGroup]="commentFormGroup" (ngSubmit)="handleSaveComment()">
-          <div class="mb-3 col-9">
+        <form
+          class="my-1 row col-6"
+          [formGroup]="commentFormGroup"
+          (ngSubmit)="handleSaveComment()">
+          <div class="mb-1 col-9">
             <input type="text" id="comment" formControlName="comment" class="form-control">
           </div>
-          <div class="col-2">
-            <button type="submit" class="btn btn-success">
-              <i class="bi bi-send"></i>
-            </button>
-          </div>
+          <button type="submit" class="mb-1 ms-4 btn btn-success col-1">
+            <i class="bi bi-send"></i>
+          </button>
         </form>
       </div>
     </div>

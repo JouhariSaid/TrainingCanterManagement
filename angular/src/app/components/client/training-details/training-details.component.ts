@@ -8,6 +8,7 @@ import {CommentService} from "../../../services/comment.service";
 import {CommentModel} from "../../model/comment.model";
 import {map} from "rxjs";
 import {ImageProcessingService} from "../../../services/image-processing.service";
+import {RequestService} from "../../../services/request.service";
 
 @Component({
   selector: 'app-training-details',
@@ -22,6 +23,7 @@ export class TrainingDetailsComponent implements OnInit {
     private trainingService: TrainingService,
     public userService: UserService,
     private commentService: CommentService,
+    private requestService: RequestService,
     private router: Router,
     private imageProcessingService: ImageProcessingService,
     private fb: FormBuilder,
@@ -45,9 +47,9 @@ export class TrainingDetailsComponent implements OnInit {
   }
 
   handleEnrollTraining(training: Training) {
-    this.userService.addParticipantToTraining(training).subscribe({
+    this.requestService.saveRequest(training).subscribe({
       next: (t) => {
-        alert("Congrats! You have successfully enrolled " + t.name + " training.");
+        alert("Your request is saved successfully!");
       },
       error: (err) => alert("Not enrolled!")
     })
@@ -69,7 +71,7 @@ export class TrainingDetailsComponent implements OnInit {
     this.commentService.saveComment(comment).subscribe({
       next: (res) => {
         comment.commentId = res.commentId;
-        this.userService.addCommentToTraining(comment).subscribe({
+        this.trainingService.addCommentToTraining(comment).subscribe({
           next: (training) => {
             alert("Your comment should be validated by the ADMIN before display it!")
           },

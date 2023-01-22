@@ -3,7 +3,7 @@
     <div class="card-header d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <h1 class="fs-4 me-4">List of users</h1>
-        <div  class="btn-group">
+        <div *ngIf="users.length > 0" class="btn-group">
           <button style="width: 150px" class="btn btn-outline-secondary btn-sm text-start" type="button">
             {{role}}
           </button>
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body">
+    <div *ngIf="users.length > 0; else nousers" class="card-body">
       <table class="table table-bordered">
         <thead class="table-light text-center">
         <tr>
@@ -48,3 +48,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #nousers>
+  <div class="text-success text-center fs-3 my-2">
+    No users!
+  </div>
+</ng-template>

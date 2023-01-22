@@ -1,9 +1,9 @@
-<div *ngIf="comments" class="container">
+<div class="container my-2">
   <div class="card">
     <div class="card-header">
-
+      Comments
     </div>
-    <div class="card-body">
+    <div *ngIf="comments.length > 0; else nocomments" class="card-body">
       <table class="table">
         <thead>
           <tr>
@@ -32,3 +32,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #nocomments>
+  <div class="text-success text-center fs-3 my-2">
+    No comments!
+  </div>
+</ng-template>

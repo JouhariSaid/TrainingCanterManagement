@@ -5,6 +5,9 @@ import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {map} from "rxjs";
 import {ImageProcessingService} from "../../services/image-processing.service";
+import {RequestService} from "../../services/request.service";
+import {RequestModel} from "../model/request.model";
+import {User} from "../model/user.model";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private trainingService: TrainingService,
-    private userService: UserService,
+    public userService: UserService,
+    private requestService: RequestService,
     private router: Router,
     private imageProcessingService: ImageProcessingService,
   ) { }
@@ -44,11 +48,24 @@ export class HomeComponent implements OnInit {
   }
 
   handleEnrollTraining(training: Training) {
-    this.userService.addParticipantToTraining(training).subscribe({
-      next: (t) => {
-        alert("Congrats! You have successfully enrolled " + t.name + " training.");
+    this.requestService.saveRequest(training).subscribe({
+      next: (request) => {
+        request.training = training;
+        this.trainingService.addRequestToTraining(request).subscribe({
+          next: (training) => {
+            alert("Your request is saved successfully!");
+          }
+        })
       },
       error: (err) => alert("Not enrolled!")
     })
+  }
+
+  suggestTraining() {
+
+  }
+
+  alreadyEnrolled(training: Training) {
+    return training.participants.includes(<User>training.participants.find(u => u.userId == this.userService.currentUser?.userId))
   }
 }

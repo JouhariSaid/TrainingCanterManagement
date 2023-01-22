@@ -4,7 +4,7 @@
       <h1 class="fs-4">List of Trainings</h1>
       <button class="btn btn-outline-info" (click)="newTraining()">New Training</button>
     </div>
-    <div class="card-body">
+    <div *ngIf="trainings.length > 0; else notrainings" class="card-body">
       <table class="table table-bordered">
         <thead class="table-light text-center">
           <tr>
@@ -12,7 +12,7 @@
             <th>Name</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th style="width: 200px">Number of participants</th>
+            <th style="width: 120px">Participants</th>
             <th>Trainer</th>
             <th>Actions</th>
           </tr>
@@ -24,8 +24,12 @@
             <td>{{ training.startDate.toLocaleDateString() }}</td>
             <td>{{ training.endDate.toLocaleDateString() }}</td>
             <td class="d-flex justify-content-between align-items-center">
-              {{ training.participants.length }}
-              <button class="btn" (click)="handleDownloadListOfParticipants(training)" title="Download the list of participants">
+              {{ training.participants.length }}/{{ training.numberOfParticipants }}
+              <button
+                [disabled]="training.participants.length == 0"
+                class="btn border-0"
+                (click)="handleDownloadListOfParticipants(training)"
+                title="Download the list of participants">
                 <i class="bi bi-download"></i>
               </button>
             </td>
@@ -46,3 +50,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #notrainings>
+  <div class="text-success text-center fs-3 my-2">
+    No trainings!
+  </div>
+</ng-template>

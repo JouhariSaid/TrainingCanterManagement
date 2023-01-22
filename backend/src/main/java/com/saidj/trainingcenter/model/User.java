@@ -60,6 +60,10 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Set<Request> requests;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)

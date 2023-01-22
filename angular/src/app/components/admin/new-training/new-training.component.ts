@@ -25,6 +25,7 @@ export class NewTrainingComponent implements OnInit {
     description: "",
     startDate: new Date(),
     endDate: new Date(),
+    numberOfParticipants: 0,
     image: {
       file: {} as File,
       url: {}
@@ -33,6 +34,7 @@ export class NewTrainingComponent implements OnInit {
     trainerAmount: 0,
     participants: [],
     comments: [],
+    requests: [],
     trainer: {
       userId: 0,
       name: "",
@@ -70,6 +72,7 @@ export class NewTrainingComponent implements OnInit {
           endDate: this.fb.control(null, [Validators.required]),
           price: this.fb.control(null, [Validators.required]),
           trainerAmount: this.fb.control(null, [Validators.required]),
+          numberOfParticipants: this.fb.control(null, [Validators.required]),
         })
       }
     })

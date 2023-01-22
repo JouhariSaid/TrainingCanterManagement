@@ -1,0 +1,32 @@
+<div class="container my-2">
+  <div class="card">
+    <div class="card-header">List of requests</div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="table-light text-center">
+          <tr>
+            <th>ID</th>
+            <th>Training</th>
+            <th>User</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+          <tr *ngFor="let request of requests">
+            <td>{{ request.requestId }}</td>
+            <td>{{ request.training.name }}</td>
+            <td>{{ request.user.name }}</td>
+            <td style="width: 120px">
+              <button title="Accept Request" class="btn btn-success mx-1" (click)="acceptRequest(request)">
+                <i class="bi bi-check-lg text-white"></i>
+              </button>
+              <button title="Delete request" class="btn btn-danger mx-1" (click)="rejectRequest(request.user.userId)">
+                <i class="bi bi-trash text-white"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

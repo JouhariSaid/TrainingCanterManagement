@@ -55,14 +55,6 @@ export class UserService {
     return this.http.put(`${this.baseUrl}/users/${user.userId}`, user);
   }
 
-  addParticipantToTraining(training: Training): Observable<Training> {
-    return this.http.put<Training>(`${this.baseUrl}/trainings/newparticipant/${training.trainingId}/${this.currentUser?.userId}`, training)
-  }
-
-  addCommentToTraining(comment: CommentModel): Observable<Training> {
-    return this.http.put<Training>(`${this.baseUrl}/trainings/newcomment/${comment.training.trainingId}/${comment.commentId}`, comment.training)
-  }
-
   logout(): Observable<boolean> {
     this.currentUser = undefined;
     return of(true);

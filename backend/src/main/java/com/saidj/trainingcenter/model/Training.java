@@ -3,6 +3,7 @@ package com.saidj.trainingcenter.model;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +37,7 @@ public class Training {
 	private double trainerAmount;
 	private Date startDate;
 	private Date endDate;
+	private Long numberOfParticipants;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private ImageModel image;
@@ -53,6 +55,15 @@ public class Training {
 			inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
 	private Set<User> participants;
+	
+	@OneToMany
+	@JoinTable(
+			name = "training_requests", 
+			joinColumns = @JoinColumn(name = "training_id"), 
+			inverseJoinColumns = @JoinColumn(name = "request_id")
+	)
+	@JsonIgnore
+	private Set<Request> requests;
 	
 	@OneToMany
 	@JoinTable(

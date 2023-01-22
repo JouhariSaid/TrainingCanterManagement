@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.saidj.trainingcenter.model.Comment;
+import com.saidj.trainingcenter.model.Request;
 import com.saidj.trainingcenter.model.Training;
 import com.saidj.trainingcenter.model.User;
 import com.saidj.trainingcenter.repositories.TrainingRepository;
@@ -22,6 +23,9 @@ public class TrainingServiceImp implements TrainingService {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private RequestService requestService;
 
 	@Override
 	public List<Training> getTrainings() {
@@ -32,8 +36,6 @@ public class TrainingServiceImp implements TrainingService {
 	public Training getTraining(Long trainingId) {
 		Optional<Training> training = trainingRepository.findById(trainingId);
 		if(training.isPresent()) {
-			User trainer = trainingRepository.getTrainingTrainer(trainingId);
-			training.get().setTrainer(trainer);
 			return training.get();
 		}
 		throw new RuntimeException("Training not found");
@@ -74,4 +76,13 @@ public class TrainingServiceImp implements TrainingService {
 		return updateTraining(training);
 	}
 
+	@Override
+	public Training addRequestToTraining(Long trainingId, Long requestId) {
+		Training training = getTraining(trainingId);
+		Request request = requestService.getRequest(requestId);
+		
+		training.getRequests().add(request);
+		
+		return updateTraining(training);
+	}
 }

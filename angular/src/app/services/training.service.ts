@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Training} from "../components/model/training.model";
 import {Observable} from "rxjs";
 import {CommentModel} from "../components/model/comment.model";
+import {UserService} from "./user.service";
+import {RequestModel} from "../components/model/request.model";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ import {CommentModel} from "../components/model/comment.model";
 export class TrainingService {
   private baseUrl="http://localhost:8585";
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) {
 
   }
@@ -33,6 +36,18 @@ export class TrainingService {
 
   deleteTraining(trainingId: number): Observable<Object> {
     return this.http.delete(`${this.baseUrl}/trainings/${trainingId}`);
+  }
+
+  addParticipantToTraining(training: Training, userId: number): Observable<Training> {
+    return this.http.put<Training>(`${this.baseUrl}/trainings/newparticipant/${training.trainingId}/${userId}`, training)
+  }
+
+  addCommentToTraining(comment: CommentModel): Observable<Training> {
+    return this.http.put<Training>(`${this.baseUrl}/trainings/newcomment/${comment.training.trainingId}/${comment.commentId}`, comment.training)
+  }
+
+  addRequestToTraining(request: RequestModel): Observable<Training> {
+    return this.http.put<Training>(`${this.baseUrl}/trainings/newrequest/${request.training.trainingId}/${request.requestId}`, request.training)
   }
 
   downloadListOfParticipants(trainingId: number) {

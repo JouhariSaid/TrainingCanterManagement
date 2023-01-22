@@ -12,4 +12,5 @@ public interface TrainingService {
 	void deleteTraining(Long trainingId);
 	Training addParticipantToTraining(Long trainingId, Long userId);
 	Training addCommentToTraining(Long trainingId, Long commentId);
+	Training addRequestToTraining(Long trainingId, Long requestId);
 }

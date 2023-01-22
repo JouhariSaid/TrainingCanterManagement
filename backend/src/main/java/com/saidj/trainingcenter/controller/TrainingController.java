@@ -112,6 +112,11 @@ public class TrainingController {
 		return trainingService.addCommentToTraining(trainingId, commentId);
 	}
 	
+	@PutMapping("/trainings/newrequest/{trainingId}/{requestId}")
+	Training addRequestToTraining(@PathVariable Long trainingId, @PathVariable Long requestId) {
+		return trainingService.addRequestToTraining(trainingId, requestId);
+	}
+	
 	public ImageModel uploadImage(MultipartFile multipartFile) throws IOException {
 		ImageModel imageModel = new ImageModel(
 				multipartFile.getOriginalFilename(),
